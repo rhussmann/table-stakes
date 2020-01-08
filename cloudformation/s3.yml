@@ -1,3 +1,5 @@
+# Inspired by https://github.com/sjevs/cloudformation-s3-static-website-with-cloudfront-and-route-53
+
 Resources:
   MiscBucket:
     Type: AWS::S3::Bucket
