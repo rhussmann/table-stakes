@@ -5,10 +5,10 @@ export class AppService {
   constuctor() {}
 
   public getHello(): string {
-    return "Hello World! Nest ";
+    return "Hello World! Nest";
   }
 
   public getBonjour(): string {
-    return "Bonjour le Monde! Nest ";
+    return "Bonjour le Monde! Nest";
   }
 }

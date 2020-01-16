@@ -7,12 +7,19 @@ export class AppController {
 
   @Get("hello/en")
   getHello(): string {
-    console.log(`This service ${this.appService}`);
     return this.appService.getHello();
   }
 
   @Get("hello/fr")
   getBonjour(): string {
     return this.appService.getBonjour();
+  }
+
+  @Get("json")
+  getJson(): any {
+    return {
+      it: "is",
+      some: "json"
+    };
   }
 }
