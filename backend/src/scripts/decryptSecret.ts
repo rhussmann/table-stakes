@@ -3,8 +3,8 @@ import * as AWS from "aws-sdk";
 import { config } from "../config/config";
 import { decryptSecret } from "../util/secrets";
 
-const toEncryptCLI = process.argv[2];
-if (!toEncryptCLI) {
+const toDecryptCLI = process.argv[2];
+if (!toDecryptCLI) {
   console.error("Error: input parameter requred");
   console.error("");
   console.error("Usage: yarn -s decryptSecret encryptedSecret");
@@ -29,4 +29,4 @@ const kms = new AWS.KMS({
   );
 
   console.log(decryptedSecret);
-})(toEncryptCLI);
+})(toDecryptCLI);
