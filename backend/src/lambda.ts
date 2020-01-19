@@ -1,10 +1,16 @@
+import { NestFactory } from "@nestjs/core";
+import { ExpressAdapter } from "@nestjs/platform-express";
+import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { Handler, Context } from "aws-lambda";
 import { Server } from "http";
 import { createServer, proxy } from "aws-serverless-express";
 import { eventContext } from "aws-serverless-express/middleware";
 
-import { NestFactory } from "@nestjs/core";
-import { ExpressAdapter } from "@nestjs/platform-express";
+import { swaggerEndpoint } from "./util/constants";
+
+// @ts-ignore
+import "source-map-support/register";
+
 import { AppModule } from "./app.module";
 
 const express = require("express");
@@ -26,6 +32,16 @@ async function bootstrapServer(): Promise<Server> {
       new ExpressAdapter(expressApp)
     );
     nestApp.use(eventContext());
+
+    const options = new DocumentBuilder()
+      .setTitle("Table-stakes API")
+      .setDescription("The table-stakes API description")
+      .setVersion("1.0")
+      .build();
+
+    const document = SwaggerModule.createDocument(nestApp, options);
+    SwaggerModule.setup(swaggerEndpoint, nestApp, document);
+
     await nestApp.init();
     cachedServer = createServer(expressApp, undefined, binaryMimeTypes);
   }
@@ -34,6 +50,10 @@ async function bootstrapServer(): Promise<Server> {
 
 // Export the handler : the entry point of the Lambda function
 export const handler: Handler = async (event: any, context: Context) => {
+  if (event.path === `/${swaggerEndpoint}`) {
+    event.path = `/${swaggerEndpoint}/`;
+  }
+
   cachedServer = await bootstrapServer();
   return proxy(cachedServer, event, context, "PROMISE").promise;
 };
