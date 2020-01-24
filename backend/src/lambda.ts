@@ -37,6 +37,11 @@ async function bootstrapServer(): Promise<Server> {
       .setTitle("Table-stakes API")
       .setDescription("The table-stakes API description")
       .setVersion("1.0")
+      .addServer("http://localhost:3000/", "Localhost")
+      .addServer(
+        "https://rpdd6m4hh4.execute-api.us-east-1.amazonaws.com/dev/",
+        "The deployed server"
+      )
       .build();
 
     const document = SwaggerModule.createDocument(nestApp, options);

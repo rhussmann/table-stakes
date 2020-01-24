@@ -8,7 +8,7 @@ service:
 plugins:
   - serverless-plugin-typescript
   - serverless-offline
-  - serverless-plugin-optimize
+#  - serverless-plugin-optimize
 
 provider:
   name: aws
