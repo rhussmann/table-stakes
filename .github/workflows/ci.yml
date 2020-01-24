@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Hello world
-        uses: actions/hellow-world-javascript-action@v1
+        uses: actions/hello-world-javascript-action@v1
         with:
           who-to-gree: "Mona the Octocat"
         id: hello
