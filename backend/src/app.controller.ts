@@ -1,19 +1,11 @@
-import { Controller, Get } from "@nestjs/common";
-import { AppService } from "./app.service";
+import { Controller, Get, Post, Request, UseGuards } from "@nestjs/common";
+import { AuthGuard } from "@nestjs/passport";
+import { AuthService } from "./auth.service";
+import { ApiBody } from "@nestjs/swagger";
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-
-  @Get("hello/en")
-  getHello(): string {
-    return this.appService.getHello();
-  }
-
-  @Get("hello/fr")
-  getBonjour(): string {
-    return this.appService.getBonjour();
-  }
+  constructor(private readonly authService: AuthService) {}
 
   @Get("json")
   getJson(): any {
@@ -21,5 +13,26 @@ export class AppController {
       it: "is",
       some: "json"
     };
+  }
+
+  @ApiBody({
+    schema: {
+      type: "object",
+      properties: {
+        username: {
+          type: "string",
+          example: "john"
+        },
+        password: {
+          type: "string",
+          example: "changeme"
+        }
+      }
+    }
+  })
+  @UseGuards(AuthGuard("local"))
+  @Post("auth/login")
+  async login(@Request() req: any) {
+    return this.authService.login(req.user);
   }
 }
