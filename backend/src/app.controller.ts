@@ -30,7 +30,6 @@ export class AppController {
       }
     }
   })
-  @ApiBasicAuth()
   @UseGuards(AuthGuard("local"))
   @Post("auth/login")
   async login(@Request() req: any) {
