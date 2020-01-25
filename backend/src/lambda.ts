@@ -61,9 +61,6 @@ export const handler: Handler = async (event: any, context: Context) => {
     event.path = `/${swaggerEndpoint}/`;
   }
 
-  console.log(`Event: ${JSON.stringify(event)}`);
   cachedServer = await bootstrapServer();
-  const response = proxy(cachedServer, event, context, "PROMISE").promise;
-  console.log(`Response: ${JSON.stringify(await response)}`);
-  return response;
+  return proxy(cachedServer, event, context, "PROMISE").promise;
 };
