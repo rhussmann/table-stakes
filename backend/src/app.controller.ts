@@ -42,4 +42,11 @@ export class AppController {
   getProfile(@Request() req: any) {
     return req.user;
   }
+
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard("jwt"))
+  @Get("occasions")
+  async getOccasions() {
+    return Promise.resolve([]);
+  }
 }

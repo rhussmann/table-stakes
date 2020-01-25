@@ -1,0 +1,53 @@
+Parameters:
+  BaseStack:
+    Type: String
+    Default: vpc
+    Description: Name of the base stack to import VPC outputs from
+
+Resources:
+  TableStakesDatabase:
+    Type: AWS::RDS::DBInstance
+    DependsOn: TableStakesDatabaseSubnetGroup
+    Properties:
+      AllocatedStorage: 20
+      BackupRetentionPeriod: 0
+      DBInstanceClass: db.t2.micro
+      DBName: tablestakes
+      DBSubnetGroupName: !Ref TableStakesDatabaseSubnetGroup
+      Engine: mysql
+      EngineVersion: "5.7"
+      MasterUsername: root
+      MasterUserPassword: ItHasBeenChanged
+      PubliclyAccessible: true
+      Tags:
+        - Key: Name
+          Value: tablestakes
+      VPCSecurityGroups:
+        - !Ref TableStakesDatabseSecurityGroup
+        - Fn::ImportValue: !Sub ${BaseStack}-DefaultSecurityGroup
+
+  TableStakesDatabaseSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: Tablestakes database subnet group
+      DBSubnetGroupName: tablestakes-database-subnet-group
+      SubnetIds:
+        - Fn::ImportValue: !Sub ${BaseStack}-PublicSubnetA
+        - Fn::ImportValue: !Sub ${BaseStack}-PublicSubnetB
+      Tags:
+        - Key: Name
+          Value: tablestakes-db-subnet-group
+
+  TableStakesDatabseSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      VpcId:
+        Fn::ImportValue: !Sub ${BaseStack}-VPC
+      GroupDescription: MySQL protocol database access
+      GroupName: mysql
+      SecurityGroupIngress:
+        CidrIp: 50.126.58.232/32
+        Description: Hack cabin access
+        IpProtocol: tcp
+        FromPort: 3306
+        ToPort: 3306
