@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Request, UseGuards } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { AuthService } from "./auth.service";
-import { ApiBody } from "@nestjs/swagger";
+import { ApiBody, ApiBearerAuth } from "@nestjs/swagger";
 
 @Controller()
 export class AppController {
@@ -34,5 +34,12 @@ export class AppController {
   @Post("auth/login")
   async login(@Request() req: any) {
     return this.authService.login(req.user);
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard("jwt"))
+  @Get("profile")
+  getProfile(@Request() req: any) {
+    return req.user;
   }
 }
