@@ -1,0 +1,18 @@
+{
+  "local": {
+    "driver": "mysql",
+    "user": "root",
+    "password": "root",
+    "host": "localhost",
+    "database": "tablestakes",
+    "multipleStatements": true
+  },
+  "prod": {
+    "driver": "mysql",
+    "user": "root",
+    "password": {"ENV": "PRODUCTION_PASSWORD"},
+    "host": "dt1x76zef52vjk7.cewfhmbupzd2.us-east-1.rds.amazonaws.com",
+    "database": "tablestakes",
+    "multipleStatements": true
+  }
+}
