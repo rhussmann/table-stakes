@@ -32,6 +32,7 @@ async function bootstrapServer(): Promise<Server> {
       new ExpressAdapter(expressApp)
     );
     nestApp.use(eventContext());
+    nestApp.enableCors({ origin: "*" });
 
     const options = new DocumentBuilder()
       .setTitle("Table-stakes API")
