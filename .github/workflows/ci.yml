@@ -1,9 +1,7 @@
 name: Deploy backend
-# on:
-#   pull_request:
-#     types: [closed]
-
-on: [push]
+on:
+  pull_request:
+    types: [closed]
 
 jobs:
   build:
