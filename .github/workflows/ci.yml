@@ -1,15 +1,21 @@
-name: Greet Everyone
-on: [push]
+name: Deploy backend
+on:
+  pull_request:
+    types: [closed]
 
 jobs:
   build:
-    name: Greeting
+    name: Deploy backend
     runs-on: ubuntu-latest
     steps:
-      - name: Hello world
-        uses: actions/hello-world-javascript-action@v1
-        with:
-          who-to-gree: "Mona the Octocat"
-        id: hello
-      - name: Echo the greeting's time
-        run: echo "The time was ${{ steps.hello.outputs.time }}."
+    - uses: actions/checkout@v1
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+    - run: yarn install
+      working-directory: ./backend
+    - run: yarn sls deploy
+      working-directory: ./backend
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
