@@ -68,7 +68,7 @@
     "collectCoverageFrom": [
       "**/*.ts",
       "!**/node_modules/**",
-      "!**/scratch/**",
+      "!**/scratch/**"
     ],
     "coverageDirectory": ".coverage/",
     "testEnvironment": "node"
