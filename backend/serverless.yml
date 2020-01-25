@@ -27,4 +27,4 @@ functions:
           path: /{any+}
           cors:
             origins:
-              - *
+              - "*"
