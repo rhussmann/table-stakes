@@ -1,6 +1,6 @@
 name: Deploy backend
 on: pull_request
-  types: [closed]
+  types: closed
 
 jobs:
   build:
