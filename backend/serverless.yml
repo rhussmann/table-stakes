@@ -22,6 +22,15 @@ provider:
     - Effect: Allow
       Action: "ses:SendRawEmail"
       Resource: "*"
+    - Effect: "Allow"
+      Action:
+        - "kms:DescribeKey"
+        - "kms:Encrypt"
+        - "kms:Decrypt"
+        - "kms:ReEncrypt*"
+        - "kms:GenerateDataKey"
+        - "kms:GenerateDataKeyWithoutPlaintext"
+      Resource: "arn:aws:kms:us-east-1:330560821579:key/12863ea7-0bfb-4014-8d36-1a2c39505bb6"
 
 functions:
   main:
