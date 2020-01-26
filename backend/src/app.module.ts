@@ -2,6 +2,7 @@ import { Module } from "@nestjs/common";
 import { FactoryProvider } from "@nestjs/common/interfaces";
 import * as aws from "aws-sdk";
 import { createTransport } from "nodemailer";
+import * as mysql from "promise-mysql";
 
 import { AppController } from "./app.controller";
 import { AuthService } from "./auth.service";
@@ -11,6 +12,27 @@ import { JwtModule } from "@nestjs/jwt";
 import { jwtConstants } from "./constants";
 import { JwtStrategy } from "./jwt.strategy";
 import { MailerService } from "./mailer.service";
+import { MySqlService } from "./mysql.service";
+import { decryptSecret } from "./util/secrets";
+import { config } from "./config/config";
+
+const kms = new aws.KMS({
+  region: "us-east-1"
+});
+
+const createDecryptor = (encryptedDataKey: string) => {
+  return async (encryptedSecret: string) => {
+    const decryptResponse = await kms
+      .decrypt({
+        CiphertextBlob: Buffer.from(encryptedDataKey, "base64")
+      })
+      .promise();
+
+    return decryptSecret(encryptedSecret, decryptResponse.Plaintext as Buffer);
+  };
+};
+
+const decryptor = createDecryptor(config.encryptedDataKey);
 
 const mailerServiceFactory: FactoryProvider<MailerService> = {
   provide: MailerService,
@@ -22,6 +44,27 @@ const mailerServiceFactory: FactoryProvider<MailerService> = {
       })
     });
     return new MailerService(sesTransport);
+  }
+};
+
+let connection = null;
+const mysqlServiceFactory = {
+  provide: MySqlService,
+  useFactory: async () => {
+    if (!connection) {
+      const password = await decryptor(config.encryptedDatabasePassword);
+      const database = config.databaseName;
+      const username = "tablestakes"; // TODO: Needs to be in config
+
+      connection = await mysql.createConnection({
+        host: "dt1x76zef52vjk7.cewfhmbupzd2.us-east-1.rds.amazonaws.com", // TODO: Needs to be in config
+        user: username,
+        database,
+        password
+      });
+    }
+
+    return new MySqlService(connection);
   }
 };
 
@@ -38,7 +81,8 @@ const mailerServiceFactory: FactoryProvider<MailerService> = {
     UsersService,
     LocalStrategy,
     JwtStrategy,
-    mailerServiceFactory
+    mailerServiceFactory,
+    mysqlServiceFactory
   ]
 })
 export class AppModule {}
