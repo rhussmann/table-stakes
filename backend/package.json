@@ -39,6 +39,8 @@
     "@types/source-map-support": "^0.5.0",
     "@types/supertest": "^2.0.8",
     "aws-sdk": "^2.606.0",
+    "db-migrate": "^0.11.6",
+    "db-migrate-mysql": "^2.1.0",
     "jest": "^25.1.0",
     "serverless": "^1.60.5",
     "serverless-offline": "^5.12.1",
