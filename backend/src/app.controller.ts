@@ -1,7 +1,20 @@
-import { Controller, Get, Post, Request, UseGuards } from "@nestjs/common";
+import {
+  Controller,
+  Get,
+  Param,
+  Post,
+  Request,
+  UseGuards
+} from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { AuthService } from "./auth.service";
 import { ApiBody, ApiBearerAuth } from "@nestjs/swagger";
+
+interface Occasion {
+  id: string;
+  name: string;
+  date: string;
+}
 
 @Controller()
 export class AppController {
@@ -48,5 +61,16 @@ export class AppController {
   @Get("occasions")
   async getOccasions() {
     return Promise.resolve([]);
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard("jwt"))
+  @Get("occasions/:id")
+  getOccasion(@Param("id") id: string): Occasion {
+    return {
+      id,
+      name: "The event",
+      date: new Date().toISOString()
+    };
   }
 }
