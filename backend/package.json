@@ -17,7 +17,7 @@
     "@nestjs/platform-express": "^6.10.14",
     "@nestjs/swagger": "^4.1.12",
     "aws-serverless-express": "^3.3.6",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "nodemailer": "^6.4.2",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
