@@ -10,11 +10,11 @@
     "decryptSecret": "ts-node src/scripts/decryptSecret.ts"
   },
   "dependencies": {
-    "@nestjs/common": "^6.10.14",
-    "@nestjs/core": "^6.10.14",
+    "@nestjs/common": "^11.0.0",
+    "@nestjs/core": "^11.0.0",
     "@nestjs/jwt": "^6.1.1",
-    "@nestjs/passport": "^6.1.1",
-    "@nestjs/platform-express": "^6.10.14",
+    "@nestjs/passport": "^11.0.0",
+    "@nestjs/platform-express": "^11.0.0",
     "@nestjs/swagger": "^4.1.12",
     "aws-serverless-express": "^3.3.6",
     "express": "^4.17.1",
