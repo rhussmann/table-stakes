@@ -1528,14 +1528,14 @@
     defer-to-connect "^1.0.1"
 
 "@types/aws-lambda@*", "@types/aws-lambda@^8.10.39":
-  version "8.10.39"
-  resolved "https://registry.yarnpkg.com/@types/aws-lambda/-/aws-lambda-8.10.39.tgz#da83cf7a82695a8904e383d705829fecf96b7db2"
-  integrity sha512-6qxQ4wS636AapVvDbzltI/Xn69QWxjcvohvxd/+MTWzdE9Vqz1xgERr38jEbBGEkyyG8y819nAhjGsiY6KNh1A==
+  version "8.10.147"
+  resolved "https://registry.yarnpkg.com/@types/aws-lambda/-/aws-lambda-8.10.147.tgz#dc5c89aa32f47a9b35e52c32630545c83afa6f2f"
+  integrity sha512-nD0Z9fNIZcxYX5Mai2CTmFD7wX7UldCkW2ezCF8D1T5hdiLsnTWDGRpfRYntU6VjTdLQjOvyszru7I1c1oCQew==
 
 "@types/aws-serverless-express@^3.3.2":
-  version "3.3.2"
-  resolved "https://registry.yarnpkg.com/@types/aws-serverless-express/-/aws-serverless-express-3.3.2.tgz#a4e7bff8ec53eb970acb0d87806654c80285e6f9"
-  integrity sha512-2vBt5YCjDFAkFC53O8/TEJpjsDnF8Gz0ntxwESWotgXurWrFGdmVkt0Z6t9buVO2bO833+SMsWd8PL+2io4A9Q==
+  version "3.3.10"
+  resolved "https://registry.yarnpkg.com/@types/aws-serverless-express/-/aws-serverless-express-3.3.10.tgz#45bb376e01b0fa84471f8111d49bd532d55e5079"
+  integrity sha512-a/NGZQ9MDKX0PIXHgCa0L0fHbYTjvMJ9vKGr22PvkU1EBXSfnVNnNJgDmTLmMzrURqeHCS7uIIYZTawB1pPSrQ==
   dependencies:
     "@types/aws-lambda" "*"
     "@types/express" "*"
