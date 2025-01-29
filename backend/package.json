@@ -48,7 +48,7 @@
     "serverless-plugin-typescript": "^1.1.9",
     "supertest": "^4.0.2",
     "ts-jest": "^29.0.0",
-    "ts-loader": "^5.3.3",
+    "ts-loader": "^9.0.0",
     "ts-node": "^10.0.0",
     "typemoq": "^2.1.0",
     "typescript": "^5.0.0"
